@@ -1,6 +1,24 @@
 History
 -------
 
+- 0.3.6 Apr 19, 2015
+
+   -   Django 1.8 Compatibility #80
+   -   Fix .place-info-actions height
+
+-  0.3.5 Mar 11, 2015
+
+   -   Fix wrong bootstrap column calculations fix for xs-sized devices #77 
+
+-  0.3.4 Fev 18, 2015
+
+   -   Fix #66 center calendar box caption
+   -   Fix collapsable fieldsets not showing. #61
+   -   Fix .field-box broken on chrome. #65
+   -   Fix h2 margin top. #64
+   -   Fix filter vertical breaks on chrome #63.
+   -   Fix popover closes/fadeout before I can click on the link #57
+
 -  0.3.3 Dec 2, 2014
 
    -   Very Important Fix: Checkbox Not showing on TabularInline
