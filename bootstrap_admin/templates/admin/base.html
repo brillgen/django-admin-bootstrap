@@ -1,4 +1,5 @@
-{% load admin_static bootstrap_admin_template_tags %}{% load firstof from future %}{% display_sidebar_menu cl.has_filters as is_displaying_menu %}<!DOCTYPE html>
+{% load i18n static bootstrap_admin_template_tags  %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,10 @@
   {% endblock bootstrap_admin_css %}
 
   <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}" />
+  {% datetime_widget_css_path as datetime_widget_css %}
+  {% if datetime_widget_css %}
+    <link rel="stylesheet" type="text/css" href="{% static datetime_widget_css %}" />
+  {% endif %}
 
 {% block extrastyle %}{% endblock %}
 
@@ -21,8 +26,13 @@
 {% endif %}
 
 {% block jquery %}
-  <script type="text/javascript" src="{% static "admin/js/jquery.js" %}"></script>
-  <script type="text/javascript" src="{% static "admin/js/jquery.init.js" %}"></script>
+  {% jquery_vendor_path as jquery_path  %}
+  {% if jquery_path %}
+    <script type="text/javascript" src="{% static jquery_path %}"></script>
+  {% else %}
+    <script type="text/javascript" src="{% static "admin/js/jquery.js" %}"></script>
+  {% endif %}
+    <script type="text/javascript" src="{% static "admin/js/jquery.init.js" %}"></script>
 {% endblock jquery %}
   <script>
     (function ($) {
@@ -44,8 +54,8 @@
   <![endif]-->
 </head>
 {% load i18n %}
-
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}{% if not is_displaying_menu %} no-sidebar{% endif %}">
+{% display_sidebar_menu cl.has_filters as is_displaying_menu %}
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}{% if not is_displaying_menu %} no-sidebar{% endif %}" data-admin-utc-offset="{% now "Z" %}">
 
   <div id="overlay">
     <div class="spinner">
