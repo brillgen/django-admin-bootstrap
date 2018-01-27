@@ -62,7 +62,7 @@ def placeholder(field, placeholder=''):
 
 
 def sidebar_menu_setting():
-    return getattr(settings, 'BOOTSTRAP_ADMIN_SIDEBAR_MENU', False)
+    return getattr(settings, 'BOOTSTRAP_ADMIN_SIDEBAR_MENU', True)
 
 
 @register.assignment_tag
@@ -71,20 +71,6 @@ def display_sidebar_menu(has_filters=False):
         # Always display the menu in change_list.html
         return True
     return sidebar_menu_setting()
-
-
-@register.assignment_tag
-def jquery_vendor_path():
-    if DJANGO_VERSION < (1, 9):
-        return 'admin/js/jquery.js'
-    return 'admin/js/vendor/jquery/jquery.js'
-
-
-@register.assignment_tag
-def datetime_widget_css_path():
-    if DJANGO_VERSION < (1, 9):
-        return ''
-    return 'admin/css/datetime_widget.css'
 
 
 @register.inclusion_tag('bootstrap_admin/sidebar_menu.html',
